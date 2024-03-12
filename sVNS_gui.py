@@ -117,7 +117,8 @@ class App(customtkinter.CTk):
         for PW in PWs:
             PWs_str.append(str(PW))
             # Initialise pulse frequencies range and strings
-        PFs = [10, 20]
+        # PFs = [10, 20]
+        PFs = [20]
         PFs_str = []
         for PF in PFs:
             PFs_str.append(str(PF))
@@ -203,10 +204,13 @@ class App(customtkinter.CTk):
         global command_msg
         global PW_byte
         Period = 1/int(PF_number)
-        PF_byte = round(Period/0.00005 - 2*PW_byte)
-        #if PF_byte <= 255:
-        command_msg[2] = PF_byte >> 8
-        command_msg[3] = PF_byte & 0xFF 
+        # PF_byte = round(Period/0.00005 - 2*PW_byte)
+        # command_msg[2] = PF_byte >> 8
+        # command_msg[3] = PF_byte & 0xFF
+        if Period == 0.05:
+            command_msg[2] = 14494 >> 8
+            command_msg[3] = 14494 & 0xFF
+
         app.command_msg_label_2.configure(text = f"{command_msg}") 
         app.PFdropdown_label.configure(text=f"Pulse Frequency (Hz):  {PF_number}")
 
